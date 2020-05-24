@@ -6,11 +6,11 @@ using TechTalk.SpecFlow;
 namespace GoRestAPIClassLibrary
 {
     [Binding]
-    public sealed class GoRestAPISteps
+    public sealed class GoRestAPISteps : GoRestAPITesting.DataEntities.BaseClass
     {
         private readonly ScenarioContext context;
-        //private RestClient client;
         private IRestResponse apiResponse;
+        private string requestFormat;
         public GoRestAPISteps(ScenarioContext injectedContext)
         {
             context = injectedContext;
@@ -22,10 +22,11 @@ namespace GoRestAPIClassLibrary
             RestAPIHelper.SetUrl();
         }
 
-        [When(@"get request with json header format is sent to endpoint '(.*)'")]
-        public void WhenGetRequestWithJsonHeaderFormatIsSentToEndpoint(string endpoint)
+        [When(@"get request with '(.*)' header format is sent to endpoint '(.*)'")]
+        public void WhenGetRequestWithHeaderFormatIsSentToEndpoint(string format, string endpoint)
         {
-            RestAPIHelper.CreateJSONRequest(endpoint);
+            RestAPIHelper.CreateJSONRequest(format, endpoint);
+            requestFormat = format;
         }
 
         [Then(@"api response is with ok status")]
@@ -41,7 +42,14 @@ namespace GoRestAPIClassLibrary
             string response = apiResponse.Content;
             var jObject = JObject.Parse(apiResponse.Content);
             string value = jObject["_meta"]["totalCount"].Value<string>();
-            Assert.AreEqual(value, "2053", "Correct count number not received in the Response");            
+            //if (requestFormat.Equals("json"))
+            //{
+                Assert.AreEqual(value, userCount, "Correct count number not received in the Response");
+            //}
+            //else if (requestFormat.Equals("xml"))
+            //{                
+            //    Assert.AreEqual(value, xmlCount, "Correct count number not received in the Response");
+            //}
         }
 
     }

@@ -1,5 +1,4 @@
-﻿using GoRestAPITesting.DataEntities;
-using RestSharp;
+﻿using RestSharp;
 
 namespace GoRestAPIClassLibrary
 {
@@ -13,10 +12,17 @@ namespace GoRestAPIClassLibrary
             client = new RestClient(baseURL);
         }
 
-        public static RestRequest CreateJSONRequest(string endpoint)
+        public static RestRequest CreateJSONRequest(string format, string endpoint)
         {
-            restRequest = new RestRequest(endpoint, Method.GET);
-            restRequest.RequestFormat = RestSharp.DataFormat.Json;
+            restRequest = new RestRequest(endpoint, Method.GET);            
+            if (format.Equals("json"))
+            {
+                restRequest.RequestFormat = RestSharp.DataFormat.Json;
+            }
+            else if (format.Equals("xml"))
+            {
+                restRequest.RequestFormat = RestSharp.DataFormat.Xml;
+            }
             restRequest.AddHeader("Authorization", "Bearer "+MyToken);
             return restRequest;
         }
