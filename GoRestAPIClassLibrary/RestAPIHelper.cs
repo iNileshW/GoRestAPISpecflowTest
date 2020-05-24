@@ -22,6 +22,7 @@ namespace GoRestAPIClassLibrary
             else if (format.Equals("xml"))
             {
                 restRequest.RequestFormat = RestSharp.DataFormat.Xml;
+                restRequest.AddHeader("_format", format);
             }
             restRequest.AddHeader("Authorization", "Bearer "+MyToken);
             return restRequest;
