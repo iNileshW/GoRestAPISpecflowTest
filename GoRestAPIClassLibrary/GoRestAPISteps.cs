@@ -35,6 +35,14 @@ namespace GoRestAPIClassLibrary
             requestFormat = format;
         }
 
+        [When(@"get request with (.*) header format is sent to endpoint (.*)")]
+        public void WhenGetRequestWithJsonHeaderFormatIsSentToEndpointUsers(string format, string endpoint)
+        {
+            RestAPIHelper.CreateJSONRequest(format, endpoint);
+            requestFormat = format;
+        }
+
+
         [Then(@"api response is with ok status")]
         public void ThenApiResponseIsWithOkStatus()
         {

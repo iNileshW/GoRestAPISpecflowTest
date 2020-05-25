@@ -4,18 +4,15 @@
 	want to check get response
 
 @getUsers
-Scenario: Get JSON API response and validate users count
+Scenario Outline: Get JSON API response and validate users count
 	Given user has an endpoint
-	When get request with 'json' header format is sent to endpoint 'users'
+	When get request with <format> header format is sent to endpoint <endpoint>
 	Then api response is with ok status
 	And validate count in api response
-
-@getUsers
-Scenario: Get XML API response and validate users count
-	Given user has an endpoint
-	When get request with 'xml' header format is sent to endpoint 'users'
-	Then api response is with ok status
-	And validate count in api response
+Examples:
+| format | endpoint |
+| json   | users    |
+| xml    | users    |
 
 @getAlbum
 Scenario: Get JSON API response status and album count

@@ -1,14 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Xml.Linq;
-using System.Xml.Serialization;
-using GoRestAPITesting.DataEntities;
-using GoRestAPITesting.Util;
+﻿using GoRestAPITesting.Util;
 using Newtonsoft.Json.Linq;
-using Org.XmlUnit.Constraints;
 using RestSharp;
 
 namespace GoRestAPIClassLibrary
@@ -28,7 +19,7 @@ namespace GoRestAPIClassLibrary
             restRequest = new RestRequest(endpoint, Method.GET);            
             if (format.Equals("json"))
             {
-                //restRequest.RequestFormat = RestSharp.DataFormat.Json;
+                restRequest.RequestFormat = RestSharp.DataFormat.Json;
                 restRequest.AddQueryParameter("_format", format);
             }
             else if (format.Equals("xml"))

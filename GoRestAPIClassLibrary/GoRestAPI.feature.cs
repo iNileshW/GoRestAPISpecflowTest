@@ -76,12 +76,18 @@ namespace GoRestAPITesting
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Get JSON API response and validate users count")]
         [NUnit.Framework.CategoryAttribute("getUsers")]
-        public virtual void GetJSONAPIResponseAndValidateUsersCount()
+        [NUnit.Framework.TestCaseAttribute("json", "users", null)]
+        [NUnit.Framework.TestCaseAttribute("xml", "users", null)]
+        public virtual void GetJSONAPIResponseAndValidateUsersCount(string format, string endpoint, string[] exampleTags)
         {
-            string[] tagsOfScenario = new string[] {
+            string[] @__tags = new string[] {
                     "getUsers"};
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get JSON API response and validate users count", null, new string[] {
-                        "getUsers"});
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get JSON API response and validate users count", null, @__tags);
 #line 7
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -106,7 +112,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Given("user has an endpoint", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 9
- testRunner.When("get request with \'json\' header format is sent to endpoint \'users\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("get request with {0} header format is sent to endpoint {1}", format, endpoint), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 10
  testRunner.Then("api response is with ok status", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -127,7 +133,7 @@ this.ScenarioInitialize(scenarioInfo);
                     "getUsers"};
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get XML API response and validate users count", null, new string[] {
                         "getUsers"});
-#line 14
+#line 25
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -147,16 +153,16 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 15
+#line 26
  testRunner.Given("user has an endpoint", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 16
+#line 27
  testRunner.When("get request with \'xml\' header format is sent to endpoint \'users\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 17
+#line 28
  testRunner.Then("api response is with ok status", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 18
+#line 29
  testRunner.And("validate count in api response", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
@@ -172,7 +178,7 @@ this.ScenarioInitialize(scenarioInfo);
                     "getAlbum"};
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get JSON API response status and album count", null, new string[] {
                         "getAlbum"});
-#line 21
+#line 32
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -192,19 +198,19 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 22
+#line 33
  testRunner.Given("user has an endpoint", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 23
+#line 34
  testRunner.When("get request with \'json\' header format is sent to endpoint \'albums\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 24
+#line 35
  testRunner.Then("api response is with ok status", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 25
+#line 36
  testRunner.And("validate album count in api response", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 26
+#line 37
  testRunner.And("validate api response is for requested id", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
