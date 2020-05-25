@@ -45,17 +45,24 @@ namespace GoRestAPIClassLibrary
         [Then(@"validate count in api response")]
         public void ThenValidateCountInApiResponse()
         {            
-            int intValue = RestAPIHelper.ReturnCount(apiResponse);
+            int intValue = RestAPIHelper.ReturnCount(requestFormat, apiResponse);
 
             Assert.IsTrue(intValue > 1, "Count not more than 1");
 
-            idValue = JObject.Parse(apiResponse.Content)["result"][0]["id"].Value<string>();
+            if (requestFormat.Equals("json")) 
+            { 
+                idValue = JObject.Parse(apiResponse.Content)["result"][0]["id"].Value<string>();
+            }
+            else if (requestFormat.Equals("xml"))
+            {
+                idValue = RestAPIHelper.ReturnXmlId(apiResponse);
+            }
         }
 
         [Then(@"validate album count in api response")]
         public void ThenValidateAlbumCountInApiResponse()
         {
-            int intValue = RestAPIHelper.ReturnCount(apiResponse);
+            int intValue = RestAPIHelper.ReturnCount(requestFormat, apiResponse);
 
             Assert.IsTrue(intValue > 1, "Count not more than 1");
         }
