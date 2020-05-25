@@ -74,14 +74,14 @@ namespace GoRestAPITesting
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Get JSON API response status code and record count")]
-        [NUnit.Framework.CategoryAttribute("getusers")]
-        public virtual void GetJSONAPIResponseStatusCodeAndRecordCount()
+        [NUnit.Framework.DescriptionAttribute("Get JSON API response and validate users count")]
+        [NUnit.Framework.CategoryAttribute("getUsers")]
+        public virtual void GetJSONAPIResponseAndValidateUsersCount()
         {
             string[] tagsOfScenario = new string[] {
-                    "getusers"};
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get JSON API response status code and record count", null, new string[] {
-                        "getusers"});
+                    "getUsers"};
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get JSON API response and validate users count", null, new string[] {
+                        "getUsers"});
 #line 7
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -112,21 +112,21 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("api response is with ok status", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 11
- testRunner.And("with correct count in api response", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("validate count in api response", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Get XML API response status code and record count")]
-        [NUnit.Framework.CategoryAttribute("getusers")]
-        public virtual void GetXMLAPIResponseStatusCodeAndRecordCount()
+        [NUnit.Framework.DescriptionAttribute("Get XML API response and validate users count")]
+        [NUnit.Framework.CategoryAttribute("getUsers")]
+        public virtual void GetXMLAPIResponseAndValidateUsersCount()
         {
             string[] tagsOfScenario = new string[] {
-                    "getusers"};
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get XML API response status code and record count", null, new string[] {
-                        "getusers"});
+                    "getUsers"};
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get XML API response and validate users count", null, new string[] {
+                        "getUsers"});
 #line 14
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -157,7 +157,55 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("api response is with ok status", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 18
- testRunner.And("with correct count in api response", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("validate count in api response", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Get JSON API response status and album count")]
+        [NUnit.Framework.CategoryAttribute("getAlbum")]
+        public virtual void GetJSONAPIResponseStatusAndAlbumCount()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "getAlbum"};
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get JSON API response status and album count", null, new string[] {
+                        "getAlbum"});
+#line 21
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 22
+ testRunner.Given("user has an endpoint", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 23
+ testRunner.When("get request with \'json\' header format is sent to endpoint \'albums\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 24
+ testRunner.Then("api response is with ok status", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 25
+ testRunner.And("validate album count in api response", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 26
+ testRunner.And("validate api response is for requested id", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();

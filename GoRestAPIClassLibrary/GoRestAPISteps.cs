@@ -10,12 +10,12 @@ using TechTalk.SpecFlow;
 namespace GoRestAPIClassLibrary
 {
     [Binding]
-    public sealed class GoRestAPISteps : GoRestAPITesting.DataEntities.BaseClass
+    public class GoRestAPISteps : GoRestAPITesting.DataEntities.BaseClass
     {
         private readonly ScenarioContext context;
         private IRestResponse apiResponse;
         private string requestFormat;
-        private string idValue;
+        public static string idValue;
 
         public GoRestAPISteps(ScenarioContext injectedContext)
         {
@@ -41,18 +41,31 @@ namespace GoRestAPIClassLibrary
             apiResponse = RestAPIHelper.GetResponse();
             Assert.AreEqual(apiResponse.StatusCode, System.Net.HttpStatusCode.OK);
         }
+        
+        [Then(@"validate count in api response")]
+        public void ThenValidateCountInApiResponse()
+        {            
+            int intValue = RestAPIHelper.ReturnCount(apiResponse);
 
-        [Then(@"with correct count in api response")]
-        public void ThenWithCorrectCountInApiResponse()
-        {
-            string response = apiResponse.Content;
-            var jObject = JObject.Parse(apiResponse.Content);
-            string value = jObject["_meta"]["totalCount"].Value<string>();
-            int intValue = int.Parse(value);
-            
             Assert.IsTrue(intValue > 1, "Count not more than 1");
 
-            idValue = jObject["result"][0]["id"].Value<string>();
+            idValue = JObject.Parse(apiResponse.Content)["result"][0]["id"].Value<string>();
+        }
+
+        [Then(@"validate album count in api response")]
+        public void ThenValidateAlbumCountInApiResponse()
+        {
+            int intValue = RestAPIHelper.ReturnCount(apiResponse);
+
+            Assert.IsTrue(intValue > 1, "Count not more than 1");
+        }
+
+        [Then(@"validate api response is for requested id")]
+        public void ThenValidateApiResponseIsForRequestedId()
+        {
+            string actualId = RestAPIHelper.ReturnId(apiResponse);
+            
+            Assert.AreEqual(actualId, idValue);
         }
 
     }

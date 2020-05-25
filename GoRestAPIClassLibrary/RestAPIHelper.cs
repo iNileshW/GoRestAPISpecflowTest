@@ -1,4 +1,6 @@
-﻿using RestSharp;
+﻿using System.Reflection.Metadata.Ecma335;
+using Newtonsoft.Json.Linq;
+using RestSharp;
 
 namespace GoRestAPIClassLibrary
 {
@@ -25,6 +27,11 @@ namespace GoRestAPIClassLibrary
                 restRequest.AddHeader("_format", format);
             }
             restRequest.AddHeader("Authorization", "Bearer "+MyToken);
+
+            if (endpoint.Equals(albumsEndPoint))
+            {
+                restRequest.AddHeader("user_id", GoRestAPISteps.idValue);
+            }
             return restRequest;
         }
 
@@ -32,6 +39,23 @@ namespace GoRestAPIClassLibrary
         {
             var restResponse = client.Execute(restRequest);
             return restResponse;
-        } 
+        }
+
+        public static int ReturnCount(IRestResponse apiResponse)
+        {
+            string response = apiResponse.Content;
+            var jObject = JObject.Parse(response);
+            string value = jObject["_meta"]["totalCount"].Value<string>();
+            int intValue = int.Parse(value);
+            return intValue;
+        }
+
+        public static string ReturnId(IRestResponse apiResponse)
+        {
+            string response = apiResponse.Content;
+            var jObject = JObject.Parse(response);
+            string idValue = JObject.Parse(apiResponse.Content)["result"][0]["user_id"].Value<string>();
+            return idValue;
+        }
     }
 }

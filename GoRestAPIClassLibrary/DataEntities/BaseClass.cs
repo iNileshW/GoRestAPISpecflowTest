@@ -11,7 +11,7 @@ namespace GoRestAPITesting.DataEntities
         public readonly string usersEndPoint = "users";
         public readonly string postsEndPoint = "posts";
         public readonly string commentsEndPoint = "comments";
-        public readonly string albumsEndPoint = "albums";
+        public static readonly string albumsEndPoint = "albums";
         public readonly string photosEndPoint = "photos";        
         public readonly string userCount = "2027";        
     }
