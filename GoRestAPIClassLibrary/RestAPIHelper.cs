@@ -31,6 +31,7 @@ namespace GoRestAPIClassLibrary
             if (endpoint.Equals(albumsEndPoint))
             {
                 restRequest.AddHeader("user_id", GoRestAPISteps.idValue);
+                restRequest.AddQueryParameter("user_id", GoRestAPISteps.idValue);
             }
             return restRequest;
         }
