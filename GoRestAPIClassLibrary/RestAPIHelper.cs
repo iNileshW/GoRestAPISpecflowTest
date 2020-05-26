@@ -9,15 +9,14 @@ namespace GoRestAPIClassLibrary
     public class RestAPIHelper : GoRestAPITesting.DataEntities.BaseClass
 	{
         public static RestRequest restRequest;
-        private static RestClient client;
-        private static string idValue;
+        private static RestClient client;       
 
         public static void SetUrl()
         {
             client = new RestClient(baseURL);
         }
 
-        public static RestRequest CreateJSONRequest(string format, string endpoint, string idValue)
+        public static RestRequest CreateRequest(string format, string endpoint, string idValue)
         {
             restRequest = new RestRequest(endpoint, Method.GET);            
             if (format.Equals("json"))

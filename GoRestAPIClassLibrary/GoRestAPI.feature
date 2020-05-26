@@ -15,23 +15,6 @@ Examples:
 | xml    | users    |
 
 @getAlbum @albums
-Scenario: Get JSON API response status and album count
-	Given user has an endpoint
-	When get request with 'json' format is sent to endpoint 'albums'
-	Then api response is with ok status
-	And validate album count in api response
-	And validate api response is for requested id
-
-@getAlbum @albums
-Scenario: Get xml API response status and album count
-	Given user has an endpoint
-	When get request with 'xml' format is sent to endpoint 'albums'
-	Then api response is with ok status
-	And validate album count in api response
-	And validate api response is for requested id
-
-
-@getAlbum
 Scenario Outline: Get API response status and album count
 	Given user has an endpoint
 	When get request with <format> header format is sent to endpoint <endpoint>
@@ -43,3 +26,15 @@ Examples:
 | format | endpoint  |
 | json   | albums    |
 | xml    | albums    |
+
+@negative
+Scenario Outline: Validate API response for Bad Request
+	Given user has an endpoint
+	When get request with <format> header format is sent to endpoint <endpoint>
+	Then api response is with not ok status	
+Examples:
+| format | endpoint |
+| json   | user		|
+| xml    | user	    |
+| json   | album    |
+| xml    | album    |

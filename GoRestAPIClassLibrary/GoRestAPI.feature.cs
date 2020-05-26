@@ -127,17 +127,22 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Get JSON API response status and album count")]
+        [NUnit.Framework.DescriptionAttribute("Get API response status and album count")]
         [NUnit.Framework.CategoryAttribute("getAlbum")]
         [NUnit.Framework.CategoryAttribute("albums")]
-        public virtual void GetJSONAPIResponseStatusAndAlbumCount()
+        [NUnit.Framework.TestCaseAttribute("json", "albums", null)]
+        [NUnit.Framework.TestCaseAttribute("xml", "albums", null)]
+        public virtual void GetAPIResponseStatusAndAlbumCount(string format, string endpoint, string[] exampleTags)
         {
-            string[] tagsOfScenario = new string[] {
+            string[] @__tags = new string[] {
                     "getAlbum",
                     "albums"};
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get JSON API response status and album count", null, new string[] {
-                        "getAlbum",
-                        "albums"});
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get API response status and album count", null, @__tags);
 #line 18
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -162,7 +167,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Given("user has an endpoint", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 20
- testRunner.When("get request with \'json\' format is sent to endpoint \'albums\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("get request with {0} header format is sent to endpoint {1}", format, endpoint), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 21
  testRunner.Then("api response is with ok status", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -178,72 +183,23 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Get xml API response status and album count")]
-        [NUnit.Framework.CategoryAttribute("getAlbum")]
-        [NUnit.Framework.CategoryAttribute("albums")]
-        public virtual void GetXmlAPIResponseStatusAndAlbumCount()
-        {
-            string[] tagsOfScenario = new string[] {
-                    "getAlbum",
-                    "albums"};
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get xml API response status and album count", null, new string[] {
-                        "getAlbum",
-                        "albums"});
-#line 26
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 27
- testRunner.Given("user has an endpoint", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 28
- testRunner.When("get request with \'xml\' format is sent to endpoint \'albums\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 29
- testRunner.Then("api response is with ok status", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-#line 30
- testRunner.And("validate album count in api response", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 31
- testRunner.And("validate api response is for requested id", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Get API response status and album count")]
-        [NUnit.Framework.CategoryAttribute("getAlbum")]
-        [NUnit.Framework.TestCaseAttribute("json", "albums", null)]
-        [NUnit.Framework.TestCaseAttribute("xml", "albums", null)]
-        public virtual void GetAPIResponseStatusAndAlbumCount(string format, string endpoint, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("Validate API response for Bad Request")]
+        [NUnit.Framework.CategoryAttribute("negative")]
+        [NUnit.Framework.TestCaseAttribute("json", "user", null)]
+        [NUnit.Framework.TestCaseAttribute("xml", "user", null)]
+        [NUnit.Framework.TestCaseAttribute("json", "album", null)]
+        [NUnit.Framework.TestCaseAttribute("xml", "album", null)]
+        public virtual void ValidateAPIResponseForBadRequest(string format, string endpoint, string[] exampleTags)
         {
             string[] @__tags = new string[] {
-                    "getAlbum"};
+                    "negative"};
             if ((exampleTags != null))
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
             string[] tagsOfScenario = @__tags;
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get API response status and album count", null, @__tags);
-#line 35
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Validate API response for Bad Request", null, @__tags);
+#line 31
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -263,20 +219,14 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 36
+#line 32
  testRunner.Given("user has an endpoint", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 37
+#line 33
  testRunner.When(string.Format("get request with {0} header format is sent to endpoint {1}", format, endpoint), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 38
- testRunner.Then("api response is with ok status", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-#line 39
- testRunner.And("validate album count in api response", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 40
- testRunner.And("validate api response is for requested id", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 34
+ testRunner.Then("api response is with not ok status", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
