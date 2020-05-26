@@ -1,4 +1,6 @@
-﻿using GoRestAPITesting.Util;
+﻿using GoRestAPITesting;
+using GoRestAPITesting.DataEntities;
+using GoRestAPITesting.Util;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 
@@ -8,13 +10,14 @@ namespace GoRestAPIClassLibrary
 	{
         public static RestRequest restRequest;
         private static RestClient client;
+        private static string idValue;
 
         public static void SetUrl()
         {
             client = new RestClient(baseURL);
         }
 
-        public static RestRequest CreateJSONRequest(string format, string endpoint)
+        public static RestRequest CreateJSONRequest(string format, string endpoint, string idValue)
         {
             restRequest = new RestRequest(endpoint, Method.GET);            
             if (format.Equals("json"))
@@ -24,23 +27,31 @@ namespace GoRestAPIClassLibrary
             }
             else if (format.Equals("xml"))
             {
-                /*restRequest.RequestFormat = RestSharp.DataFormat.Xml;
-                restRequest.AddHeader("_format", format);*/
+                restRequest.RequestFormat = RestSharp.DataFormat.Xml;
                 restRequest.AddQueryParameter("_format", format);
             }
             restRequest.AddHeader("Authorization", "Bearer "+MyToken);
 
             if (endpoint.Equals(albumsEndPoint))
             {
-                restRequest.AddHeader("user_id", GoRestAPISteps.idValue);
-                restRequest.AddQueryParameter("user_id", GoRestAPISteps.idValue);
+                if (Hooks.individualExecution)
+                {
+                    idValue = BaseClass.userID;
+                }
+
+                else
+                {
+                    idValue = GoRestAPISteps.idValue;
+                }
+                
+                restRequest.AddQueryParameter("user_id", idValue);
             }
             return restRequest;
         }
 
-        public static IRestResponse GetResponse()
+        public static IRestResponse GetResponse(RestRequest sentRequest)
         {
-            var restResponse = client.Execute(restRequest);
+            var restResponse = client.Execute(sentRequest);
             return restResponse;
         }
 
@@ -56,20 +67,6 @@ namespace GoRestAPIClassLibrary
             }
             else if (format.Equals("xml"))
             {
-                //XElement xmlcode = XElement.Load(apiResponse.Content);
-                //IEnumerable<XElement> response = xmlcode.Elements();
-                //List<string> responseList = new List<string>();
-                //foreach (var item in response)
-                //{
-                //    if(item.Attribute("_meta").Value == "_meta")
-                //    {
-                //        foreach (var submenu in item.Elements())
-                //        {
-                //            responseList.Add(submenu.Attribute("totalCount").Value);
-                //        }
-                //    }
-                //}
-
                 var responseObject = Deserialization.ResponseDeserialization(apiResponse);
                 string value = responseObject.TotalCount;                
                 intValue = int.Parse(value);                
@@ -80,22 +77,22 @@ namespace GoRestAPIClassLibrary
         public static string ReturnXmlId(IRestResponse apiResponse)
         {
             var responseObject = Deserialization.IdDeserialization(apiResponse);
-
-            /*XmlSerializer deserializer = new XmlSerializer(typeof(XmlResponse));
-            TextReader reader = new StreamReader(apiResponse.Content.ToString());
-            object obj = deserializer.Deserialize(reader);
-            XmlResponse XmlData = (XmlResponse)obj;
-            reader.Close();
-            Console.WriteLine(XmlData);
-            var responseObject = XmlData.ToString();*/
             return responseObject;
         }
 
-        public static string ReturnId(IRestResponse apiResponse)
+        public static string ReturnId(string format, IRestResponse apiResponse)
         {
-            string response = apiResponse.Content;
-            var jObject = JObject.Parse(response);
-            string idValue = JObject.Parse(apiResponse.Content)["result"][0]["user_id"].Value<string>();
+            string idValue= GoRestAPISteps.idValue;
+            if (format.Equals("json"))
+            {
+                string response = apiResponse.Content;
+                var jObject = JObject.Parse(response);
+                idValue = JObject.Parse(apiResponse.Content)["result"][0]["user_id"].Value<string>();                
+            }
+            else if (format.Equals("xml"))
+            {
+                idValue = Deserialization.AlbumIdDeserialization(apiResponse);                
+            }
             return idValue;
         }
     }

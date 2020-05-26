@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using GoRestAPITesting.DataEntities;
 using RestSharp;
 
@@ -19,17 +17,24 @@ namespace GoRestAPITesting.Util
         {
             RestSharp.Deserializers.XmlDeserializer deserializer = new RestSharp.Deserializers.XmlDeserializer();
             var resultObject = deserializer.Deserialize<XmlResult>(restResponse);
+            List<string> IdList = new List<string>();            
+            foreach (var item in resultObject.Result)
+            {                
+                var itemObject = item.Substring(0, 4);
+                IdList.Add(itemObject);
+            }
+            string id = IdList[0];
+            return id;
+        }
+
+        public static string AlbumIdDeserialization(IRestResponse restResponse)
+        {
+            RestSharp.Deserializers.XmlDeserializer deserializer = new RestSharp.Deserializers.XmlDeserializer();
+            var resultObject = deserializer.Deserialize<XmlResult>(restResponse);
             List<string> IdList = new List<string>();
-            //foreach (var item in resultObject.Result)
             foreach (var item in resultObject.Result)
             {
-                //if (item.Equals("id"))
-                //{
-                //    //var itemObject = deserializer.Deserialize<XmlItem>(item);
-                //    IdList.Add(item);
-                //}
-
-                var itemObject = item.Substring(0, 4);
+                var itemObject = item.Substring(4, 4);
                 IdList.Add(itemObject);
             }
             string id = IdList[0];
